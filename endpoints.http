@@ -6,8 +6,8 @@ POST http://localhost:8080/books
 Content-Type: application/json
 
 {
-  "title": "Clean Code",
-  "author": "Robert Martin",
+  "title": "Go Lang",
+  "author": "Wesley W",
   "genre": "Software Engineering"
 }
 

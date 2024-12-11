@@ -3,9 +3,11 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"gobooks/internal/cli"
 	"gobooks/internal/service"
 	"gobooks/internal/web"
 	"net/http"
+	"os"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -19,6 +21,12 @@ func main() {
 
 	bookService := service.NewBookService(db)
 	bookHandler := web.NewBookHandlers(bookService)
+
+	if len(os.Args) > 1 && (os.Args[1] == "search" || os.Args[1] == "simulate") {
+		bookCli := cli.NewBookCLI(bookService)
+		bookCli.Run()
+		return
+	}
 
 	router := http.NewServeMux()
 	web.SetupBookHandlers(router, bookHandler)
